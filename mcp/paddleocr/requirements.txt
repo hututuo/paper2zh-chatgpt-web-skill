@@ -1,0 +1,5 @@
+beautifulsoup4
+mcp
+python-docx
+requests
+

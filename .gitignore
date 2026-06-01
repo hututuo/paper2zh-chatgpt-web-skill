@@ -1,0 +1,26 @@
+# Python bytecode and local caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS metadata
+.DS_Store
+
+# Local virtual environments
+.venv/
+.venv-*/
+venv/
+env/
+mcp/paddleocr/.env
+
+# Local run artifacts
+reader_task/
+*_reader_task/
+outputs/
+downloads/
+*.log
+
+# Large document artifacts generated during translation runs
+*.docx
+*.pdf
+*.zip

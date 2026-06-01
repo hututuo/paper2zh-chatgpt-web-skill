@@ -1,0 +1,58 @@
+{
+  "description": "Model-facing job input. Python validation is authoritative; this schema documents the JSON contract passed to ChatGPT Web.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "job_id", "task_type", "document_id", "items"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "job_id": {"type": "string"},
+    "task_type": {"type": "string"},
+    "document_id": {"type": "string"},
+    "chunking": {
+      "type": "object",
+      "properties": {
+        "contains_heading": {"type": "boolean"},
+        "table_segments": {"type": "array"}
+      },
+      "additionalProperties": true
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item_id", "item_type", "original_text", "original_sha256"],
+        "properties": {
+          "item_id": {"type": "string"},
+          "item_type": {"type": "string"},
+          "section_path": {"type": "array", "items": {"type": "string"}},
+          "section_context": {"type": "object"},
+          "heading_confidence": {"type": "string", "enum": ["style", "heuristic", "none"]},
+          "location": {"type": "object"},
+          "original_text": {"type": "string"},
+          "translation_source_text": {"type": "string"},
+          "inline_tokens": {"type": "array"},
+          "cells": {
+            "type": "array",
+            "description": "For compact table items, only translatable cells are sent to the model.",
+            "items": {
+              "type": "object",
+              "required": ["cell_id", "row", "col", "translation_source_text", "original_sha256"],
+              "properties": {
+                "cell_id": {"type": "string"},
+                "row": {"type": "integer"},
+                "col": {"type": "integer"},
+                "original_text": {"type": "string"},
+                "translation_source_text": {"type": "string"},
+                "inline_tokens": {"type": "array"},
+                "original_sha256": {"type": "string"}
+              },
+              "additionalProperties": true
+            }
+          },
+          "original_sha256": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

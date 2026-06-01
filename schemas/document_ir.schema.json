@@ -1,0 +1,40 @@
+{
+  "description": "Local deterministic IR. Python validation is authoritative; this schema documents the contract for generated artifacts.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "document_id", "source", "items", "blocks", "tables", "media"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "document_id": {"type": "string"},
+    "source": {"type": "object"},
+    "items": {
+      "type": "array",
+      "description": "All translatable paragraph, heading, caption, and table-cell items in document order.",
+      "items": {
+        "type": "object",
+        "required": ["item_id", "item_type", "location", "original_text", "original_sha256"],
+        "properties": {
+          "item_id": {"type": "string"},
+          "item_type": {"type": "string", "enum": ["paragraph", "heading", "caption", "table_cell"]},
+          "heading_confidence": {"type": "string", "enum": ["style", "heuristic", "none"]},
+          "section_path": {"type": "array", "items": {"type": "string"}},
+          "location": {"type": "object"},
+          "original_text": {"type": "string"},
+          "translation_source_text": {"type": "string"},
+          "inline_tokens": {"type": "array"},
+          "original_sha256": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "description": "Top-level paragraph-derived items only; tables are represented in tables and items."
+    },
+    "tables": {
+      "type": "array",
+      "description": "Table metadata, canonical cells, and merged-cell aliases."
+    },
+    "media": {"type": "array"}
+  }
+}

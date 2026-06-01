@@ -1,0 +1,3 @@
+display_name: ChatGPT Web JSON Reader
+short_description: Prepare DOCX translation and QA jobs for manual ChatGPT Web JSON exchange.
+default_prompt: Translate or QA this DOCX through manual ChatGPT Web JSON jobs, then validate, merge, render, and gate the final reader.

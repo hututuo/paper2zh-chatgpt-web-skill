@@ -1,0 +1,45 @@
+{
+  "description": "ChatGPT Web translation output. Local validate-model-outputs performs the authoritative identifier, hash, coverage, and rich-token checks.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "job_id", "document_id", "status", "items"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "job_id": {"type": "string"},
+    "document_id": {"type": "string"},
+    "status": {"type": "string", "const": "complete"},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item_id", "item_type", "original_sha256", "translated_text"],
+        "properties": {
+          "item_id": {"type": "string"},
+          "item_type": {"type": "string"},
+          "original_sha256": {"type": "string"},
+          "translated_text": {"type": ["string", "null"]},
+          "translated_cells": {
+            "type": "array",
+            "description": "For compact table items, one entry per provided translatable cell.",
+            "items": {
+              "type": "object",
+              "required": ["cell_id", "original_sha256", "translated_text"],
+              "properties": {
+                "cell_id": {"type": "string"},
+                "original_sha256": {"type": "string"},
+                "translated_text": {"type": ["string", "null"]},
+                "notes": {"type": "string"},
+                "error": {"type": "object"}
+              },
+              "additionalProperties": true
+            }
+          },
+          "notes": {"type": "string"},
+          "error": {"type": "object"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "qa_hints": {"type": "array"}
+  }
+}

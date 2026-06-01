@@ -1,0 +1,30 @@
+{
+  "description": "Final merged translation payload used for Markdown/DOCX/JSON render. Python validation remains authoritative.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "document_id", "items"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "document_id": {"type": "string"},
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item_id", "item_type", "original_text", "translated_text", "original_sha256"],
+        "properties": {
+          "item_id": {"type": "string"},
+          "item_type": {"type": "string"},
+          "section_path": {"type": "array", "items": {"type": "string"}},
+          "heading_confidence": {"type": "string", "enum": ["style", "heuristic", "none"]},
+          "original_text": {"type": "string"},
+          "translated_text": {"type": ["string", "null"]},
+          "translated_cells": {"type": "array"},
+          "cells": {"type": "array"},
+          "inline_tokens": {"type": "array"},
+          "original_sha256": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}
