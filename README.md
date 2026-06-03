@@ -67,7 +67,7 @@ Then pass the generated DOCX to `readerctl.py`.
 
 The skill intentionally avoids using `pdftotext`, manual copy-paste, or ad hoc text extraction as the default PDF path, because those methods can destroy reading order, table structure, and bilingual render quality.
 
-The access token is not stored in code. Configure it through `mcp/paddleocr/.env` or the MCP host environment. See `mcp/paddleocr/README.md`.
+The access token is not stored in code. Configure it through an external private env file or the MCP host environment. See `mcp/paddleocr/README.md`.
 
 ## Main Entry Point
 
@@ -120,20 +120,22 @@ For DOCX input, the MCP step is not needed. For PDF input, do not silently repla
 1. Go to the AI Studio Access Token page: <https://aistudio.baidu.com/index/accessToken>
 2. Copy the access token.
 3. Check the current free quota shown by your AI Studio/PaddleOCR account page.
-4. Configure it locally:
+4. Configure it locally in a private folder outside the repository:
 
 ```bash
-cp mcp/paddleocr/.env.example mcp/paddleocr/.env
-chmod 600 mcp/paddleocr/.env
+mkdir -p ~/.config/paper2zh-chatgpt-web-skill/secrets
+chmod 700 ~/.config/paper2zh-chatgpt-web-skill ~/.config/paper2zh-chatgpt-web-skill/secrets
+cp mcp/paddleocr/.env.example ~/.config/paper2zh-chatgpt-web-skill/secrets/paddleocr.env
+chmod 600 ~/.config/paper2zh-chatgpt-web-skill/secrets/paddleocr.env
 ```
 
-Then edit `mcp/paddleocr/.env`:
+Then edit `~/.config/paper2zh-chatgpt-web-skill/secrets/paddleocr.env`:
 
 ```text
 PADDLEOCR_ACCESS_TOKEN=your-access-token-here
 ```
 
-The repository ignores `.env`, so the token stays local.
+Point your MCP host at that file with `PADDLEOCR_MCP_ENV_FILE`.
 
 ## Typical Flow
 

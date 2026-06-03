@@ -16,7 +16,7 @@ Use `output_format="docx"` before running the Paper2ZH translation workflow on a
    <https://aistudio.baidu.com/index/accessToken>
 2. Copy your access token.
 3. Check the current free quota shown by your AI Studio/PaddleOCR account page.
-4. Put it in a private `.env` file or inject it through the MCP host environment.
+4. Put it in a private env file outside the repository or inject it through the MCP host environment.
 
 The official PaddleOCR docs also describe the same `PADDLEOCR_ACCESS_TOKEN` environment-variable convention:
 
@@ -31,11 +31,13 @@ From the repository root:
 python3 -m venv .venv-paddleocr-mcp
 . .venv-paddleocr-mcp/bin/activate
 pip install -r mcp/paddleocr/requirements.txt
-cp mcp/paddleocr/.env.example mcp/paddleocr/.env
-chmod 600 mcp/paddleocr/.env
+mkdir -p ~/.config/paper2zh-chatgpt-web-skill/secrets
+chmod 700 ~/.config/paper2zh-chatgpt-web-skill ~/.config/paper2zh-chatgpt-web-skill/secrets
+cp mcp/paddleocr/.env.example ~/.config/paper2zh-chatgpt-web-skill/secrets/paddleocr.env
+chmod 600 ~/.config/paper2zh-chatgpt-web-skill/secrets/paddleocr.env
 ```
 
-Then edit `mcp/paddleocr/.env`:
+Then edit `~/.config/paper2zh-chatgpt-web-skill/secrets/paddleocr.env`:
 
 ```text
 PADDLEOCR_ACCESS_TOKEN=your-access-token-here
@@ -50,6 +52,9 @@ Use absolute paths in your real config:
 type = "stdio"
 command = "/absolute/path/to/paper2zh-chatgpt-web-skill/.venv-paddleocr-mcp/bin/python"
 args = ["/absolute/path/to/paper2zh-chatgpt-web-skill/mcp/paddleocr/server.py"]
+
+[mcp_servers.paddleocr.env]
+PADDLEOCR_MCP_ENV_FILE = "/Users/you/.config/paper2zh-chatgpt-web-skill/secrets/paddleocr.env"
 ```
 
 The server also accepts these environment variables:
@@ -63,4 +68,4 @@ The server also accepts these environment variables:
 
 ## Security
 
-Never commit `.env` or paste your access token into public files. The repository ignores `.env` by default.
+Never commit env files or paste your access token into public files. Prefer keeping secrets outside the repository under `~/.config/paper2zh-chatgpt-web-skill/secrets/`.

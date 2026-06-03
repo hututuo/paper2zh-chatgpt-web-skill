@@ -3,11 +3,8 @@ type = "stdio"
 command = "/absolute/path/to/paddleocr-mcp-venv/bin/python"
 args = ["/absolute/path/to/paper2zh-chatgpt-web-skill/mcp/paddleocr/server.py"]
 
-# Option A: pass the token directly through the MCP client environment.
-# Prefer this for managed deployments where secrets are injected by the host.
-# [mcp_servers.paddleocr.env]
+[mcp_servers.paddleocr.env]
+PADDLEOCR_MCP_ENV_FILE = "/Users/you/.config/paper2zh-chatgpt-web-skill/secrets/paddleocr.env"
+
+# Alternative for managed deployments:
 # PADDLEOCR_ACCESS_TOKEN = "your-access-token-here"
-
-# Option B: keep the token in a private .env file next to server.py.
-# The server auto-loads mcp/paddleocr/.env when present.
-
