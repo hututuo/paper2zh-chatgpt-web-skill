@@ -2,25 +2,27 @@
 
 ![Paper2ZH Web Skill banner](assets/paper2zh-web-skill-banner.png)
 
-Translate English academic papers into Chinese bilingual DOCX/Markdown readers with structured JSON jobs, manual ChatGPT Web exchange, deterministic validation, and an optional QA review pass.
+A Codex skill for translating English academic papers into Chinese bilingual DOCX/Markdown readers through ChatGPT Web, using structured JSON jobs to save API tokens and stop the model from skipping content.
 
 The installed Codex skill name is `chatgpt-web-json-reader`.
 
 ## Why This Exists
 
-Most paper translation workflows either paste long text into a chat box or rely on API calls that become expensive for large documents. This skill keeps document processing local, turns the paper into structured JSON jobs, lets ChatGPT Web do the language work, then validates and renders the final bilingual reader.
+Most paper translation workflows either paste a whole document into a chat box or rely on API calls that become expensive for large papers. Whole-document chat translation can also make the model lazy: it may compress paragraphs, skip tables, or translate "roughly" when the text is long.
+
+This skill keeps document processing local, splits the paper into structured JSON translation jobs, lets ChatGPT Web do the language work, then validates coverage before rendering the final bilingual reader. The main advantage is simple: it saves API tokens while making it much harder for the model to silently omit, compress, or oversimplify content.
 
 It is designed for high-volume English-to-Chinese academic translation where quality, structure, and reviewability matter.
 
 ## Key Features
 
 - English paper to Chinese bilingual reader workflow.
-- Manual ChatGPT Web upload/download instead of API-heavy translation calls.
+- Manual ChatGPT Web upload/download instead of API-heavy translation calls, which is useful for large-volume translation work.
+- Structured JSON translation jobs that force paragraph, table, identifier, and hash-level coverage instead of one loose long-form answer.
+- Local validation that catches missing jobs, missing blocks, malformed JSON, broken rich-text tokens, and table mapping problems before final render.
+- Optional QA review pass for omissions, mistranslations, terminology drift, table values, citations, units, math symbols, and readability.
 - Uses the current native ChatGPT Web model available to the user.
 - Uses PaddleOCR AI Studio hosted OCR for PDF source conversion, with quota handled by the user's own AI Studio account.
-- Structured JSON translation jobs instead of uncontrolled long-paste translation.
-- Deterministic local validation before merge and render.
-- Optional QA review job for omissions, mistranslations, terminology drift, table values, citations, units, math symbols, and readability.
 - Markdown, DOCX, and JSON final outputs.
 - Table-aware translation with cell-level mapping.
 - Rich-text preservation for Office Math, drawings, hyperlinks, bold, italic, underline, strike, superscript, and subscript.
