@@ -6,6 +6,16 @@ A Codex skill for translating English academic papers into Chinese bilingual DOC
 
 The installed Codex skill name is `chatgpt-web-json-reader`.
 
+## Community
+
+<p align="center">
+  <img src="assets/wechat-group-qr.jpeg" alt="WeChat group QR code for HTT repositories" width="260">
+</p>
+
+<p align="center">
+  Scan to join the WeChat group for discussion, product releases, and update notes.
+</p>
+
 ## Why This Exists
 
 Most paper translation workflows either paste a whole document into a chat box or rely on API calls that become expensive for large papers. Whole-document chat translation can also make the model lazy: it may compress paragraphs, skip tables, or translate "roughly" when the text is long.
