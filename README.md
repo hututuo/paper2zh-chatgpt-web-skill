@@ -9,7 +9,7 @@ The installed Codex skill name is `chatgpt-web-json-reader`.
 ## Community
 
 <p align="center">
-  <img src="assets/wechat-group-qr.jpeg" alt="WeChat group QR code for HTT repositories" width="260">
+  <img src="assets/wechat-group-qr.jpeg" alt="WeChat group QR code for HTT repositories" width="220">
 </p>
 
 <p align="center">
